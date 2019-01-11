@@ -80,11 +80,13 @@ class MFiler5 version 2 {
             fname := files.items(scrollTop+cursor); 
             
             try {
+                dir := realpath(dirPath
+);
                 path := realpath(dirPath.add("/").add(fname));
                 
                 endwin();
-                cmdline := "cp -a '\{path}' ";
-                iclover2("-o", "--controlling-terminal", "-s", cmdline, "-p", "-1");
+                cmdline := "cp -a '\{path}' '\{dir}/'";
+                iclover2("-o", "--controlling-terminal", "-s", cmdline, "-p", "-2");
                 
                 initscr();
                 setEscapeDelay(0);
