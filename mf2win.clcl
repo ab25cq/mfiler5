@@ -40,6 +40,35 @@ class MFiler5 version 2 {
             }
         }
         keyEvents[KEY_UP] = keyEvents['k'];
+        keyEvents[('D'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
+            cursor+=10;
+
+            if(cursor >= MaxY) {
+                scroll_size := cursor - MaxY;
+                scrollTop+=scroll_size;
+                cursor-=scroll_size;
+            }
+            
+            if(cursor+scrollTop >= files.length())
+            {
+                scrollTop = files.length() -1;
+                cursor = 0;
+            }
+        }
+        keyEvents[('U'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
+            cursor-=10;
+            
+            if(cursor < 0) {
+                scroll_size := -cursor;
+                scrollTop-=scroll_size;
+                cursor+=scroll_size;
+                
+                if(scrollTop < 0) {
+                    scrollTop = 0;
+                    cursor = 0;
+                }
+            }
+        }
         keyEvents[('H'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
             try {
                 path := realpath(dirPath.add("/.."));
@@ -240,7 +269,6 @@ class MFiler5 version 2 {
             keyEvents[key](self, key, key2);
         }
     }
-
     
     def main(): static dynamic {
         mf := MFiler5();

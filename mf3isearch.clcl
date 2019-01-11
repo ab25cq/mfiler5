@@ -23,9 +23,11 @@ class MFiler5 version 3 {
     def view(): dynamic {
         inherit();
         
+        maxx := getmaxx();
         maxy := getmaxy();
         
         if(isearchMode) {
+            mvprintw(maxy-1, 0, " ".multiply(maxx-1));
             mvprintw(maxy-1, 0, "/\{isearchString}");
         }
     }
@@ -52,18 +54,20 @@ class MFiler5 version 3 {
                     }
                 }
                 else {
-                    isearchString.append(key.to_char);
-                    
-                    n := 0;
-                    files.each {
-                        if(it.indexOf(isearchString) != -1)
-                        {
-                            scrollTop = n;
-                            cursor = 0;
-                            break;
-                        }
+                    if(isgraph(key.to_char)) {
+                        isearchString.append(key.to_char);
                         
-                        n++;
+                        n := 0;
+                        files.each {
+                            if(it.indexOf(isearchString) != -1)
+                            {
+                                scrollTop = n;
+                                cursor = 0;
+                                break;
+                            }
+                            
+                            n++;
+                        }
                     }
                 }
             }
