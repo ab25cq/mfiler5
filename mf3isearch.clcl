@@ -18,6 +18,16 @@ class MFiler5 version 3 {
     }
     def finishISearch() {
         isearchMode = false;
+        #readDir(dirPath);
+    }
+    
+    def makeISearchDir() {
+        readDir(dirPath);
+        
+        files = files.select { it.indexOf(isearchString) != -1 }
+        
+        cursor = 0;
+        scrollTop = 0;
     }
     
     def view(): dynamic {
@@ -32,45 +42,39 @@ class MFiler5 version 3 {
         }
     }
     
-    def runKeyEvents(key:int, key2:int):dynamic {
-        if(isearchMode) {
-            when(key) {
-                case ('\n'.to_int) {
-                    finishISearch();
-                }
-                case (('H'-'A').to_int, KEY_BACKSPACE) {
-                    isearchString.delete(-1);
+    def isearchMode(key:int){
+        when(key) {
+            case ('\n'.to_int) {
+                finishISearch();
+            }
+            case (('H'-'A').to_int, KEY_BACKSPACE) {
+                isearchString.delete(-1);
+                
+                n := 0;
+                files.each {
+                    if(it.indexOf(isearchString) != -1)
+                    {
+                        scrollTop = n;
+                        cursor = 0;
+                        break;
+                    }
                     
-                    n := 0;
-                    files.each {
-                        if(it.indexOf(isearchString) != -1)
-                        {
-                            scrollTop = n;
-                            cursor = 0;
-                            break;
-                        }
-                        
-                        n++;
-                    }
-                }
-                else {
-                    if(isgraph(key.to_char)) {
-                        isearchString.append(key.to_char);
-                        
-                        n := 0;
-                        files.each {
-                            if(it.indexOf(isearchString) != -1)
-                            {
-                                scrollTop = n;
-                                cursor = 0;
-                                break;
-                            }
-                            
-                            n++;
-                        }
-                    }
+                    n++;
                 }
             }
+            else {
+                if(isgraph(key.to_char)) {
+                    isearchString.append(key.to_char);
+                    
+                    makeISearchDir();
+                }
+            }
+        }
+    }
+    
+    def runKeyEvents(key:int, key2:int):dynamic {
+        if(isearchMode) {
+            isearchMode(key);
         }
         else {
             inherit(key, key2);

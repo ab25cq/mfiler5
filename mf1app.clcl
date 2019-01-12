@@ -1,5 +1,4 @@
 
-
 class MFiler5 version 1 {
     var endOfAplication:bool;
     var keyEvents: lambda[](MFiler5, int, int);

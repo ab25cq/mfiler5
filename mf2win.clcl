@@ -1,3 +1,4 @@
+
 class MFiler5 version 2 {
     var spaceString: String;
     var dirPath: String;
@@ -100,8 +101,6 @@ class MFiler5 version 2 {
                     noecho();
                     
                     getch();
-        
-                    readDir(dirPath);
                 }
             }
         }
@@ -158,8 +157,6 @@ class MFiler5 version 2 {
                 keypad(stdscr, true);
                 raw();
                 noecho();
-                
-                readDir(dirPath);
             }
         }
         keyEvents['n'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
@@ -187,8 +184,6 @@ class MFiler5 version 2 {
             noecho();
             
             getch();
-
-            readDir(dirPath);
         }
         
         keyEvents['h'] = keyEvents['!'];
@@ -211,7 +206,7 @@ class MFiler5 version 2 {
         MaxY = getmaxy() - 2;
     }
     
-    def readDir(path:String) {
+    def readDir(path:String):dynamic {
         files = dirPath.toPath().entries().map { basename(it) };
         files.push("..");
         files.sort();
