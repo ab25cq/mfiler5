@@ -123,6 +123,25 @@ class MFiler5 version 2 {
                 readDir(dirPath);
             }
         }
+        keyEvents['m'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
+            fname := files.items(scrollTop+cursor); 
+            
+            try {
+                path := realpath(dirPath.add("/").add(fname));
+                
+                endwin();
+                cmdline := "mv -a '\{path}' ";
+                iclover2("-o", "--controlling-terminal", "-s", cmdline, "-p", "-1");
+                
+                initscr();
+                setEscapeDelay(0);
+                keypad(stdscr, true);
+                raw();
+                noecho();
+                
+                readDir(dirPath);
+            }
+        }
         keyEvents['d'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
             fname := files.items(scrollTop+cursor); 
             
