@@ -38,8 +38,11 @@ Clover.oclcl: Fundamental.clcl
 	cclover2 Fundamental.clcl
 	if which bclover2; then bclover2 Clover.oclcl; fi
 
-MFiler5.oclcl: MFiler5@4.oclcl
+MFiler5.oclcl: MFiler5@5.oclcl
 	if which bclover2; then bclover2 MFiler5.oclcl; fi
+
+MFiler5@5.oclcl: mf5make.clcl MFiler5@4.oclcl
+	cclover2 mf5make.clcl
 
 MFiler5@4.oclcl: mf4vd.clcl MFiler5@3.oclcl
 	cclover2 mf4vd.clcl
