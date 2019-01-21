@@ -185,6 +185,12 @@ class MFiler5 version 2 {
             
             getch();
         }
+        keyEvents[('L'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
+            readDir(dirPath);
+            clear();
+            view();
+            refresh();
+        }
         
         keyEvents['h'] = keyEvents['!'];
     
