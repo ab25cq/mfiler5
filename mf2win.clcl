@@ -235,7 +235,12 @@ class MFiler5 version 2 {
             dirPath = getcwd();
         }
         else {
-            dirPath = argFileName.clone();
+            if(argFileName.chars(0) == '/') {
+                dirPath = argFileName.clone();
+            }
+            else {
+                dirPath = getcwd().add("/").add(argFileName);
+            }
         }
         
         scrollTop = 0;
@@ -247,6 +252,8 @@ class MFiler5 version 2 {
     }
     
     def readDir(path:String):dynamic {
+        dirPath = realpath(path);
+
         files = dirPath.toPath().entries().map { basename(it) };
         files.push("..");
         files.sort();
