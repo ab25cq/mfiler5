@@ -183,12 +183,15 @@ class MFiler5 version 2 {
             fname := files.items(scrollTop+cursor); 
             cmdline := "./\{fname} ";
             iclover2("-o", "--controlling-terminal", "-s", cmdline);
+            println("HIT ANY KEY");
             
             initscr();
             setEscapeDelay(0);
             keypad(stdscr, true);
             raw();
             noecho();
+            
+            getch();
         }
         keyEvents['n'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
             endwin();
@@ -252,6 +255,7 @@ class MFiler5 version 2 {
         scrollTop = 0;
         
         chdir(path);
+        setenv("PWD", path, 1);
     }
     
     def clearWithoutBlink() {
