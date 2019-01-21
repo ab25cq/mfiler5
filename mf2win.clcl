@@ -130,7 +130,7 @@ class MFiler5 version 2 {
                 path := realpath(dirPath.add("/").add(fname));
                 
                 endwin();
-                cmdline := "mv -a '\{path}' ";
+                cmdline := "mv '\{path}' ";
                 iclover2("-o", "--controlling-terminal", "-s", cmdline, "-p", "-1");
                 
                 initscr();
