@@ -6,11 +6,24 @@ class MFiler5 version 5 {
         keyEvents[('K'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
             makeMode();
         }
+        
+        keyEvents[('G'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
+            grepMode2();
+        }
     }
     
     def makeMode() {
         endwin();
         iclover2("--controlling-terminal", "-c", "a := make().getErrorOutput().selector().scan(/^(.+?):(\\d+)/); vicl(\"--controlling-terminal\", a.items(1), a.items(2).insert(0, '+'))")
+        initscr();
+        setEscapeDelay(0);
+        keypad(stdscr, true);
+        raw();
+        noecho();
+    }
+    def grepMode2() {
+        endwin();
+        iclover2("--controlling-terminal", "-o", "-s", "a := egrep(\"-n\", \"\", glob(\"*\")).selector().scan(/^(.+?):(\\d+)/); vicl(\"--controlling-terminal\", a.items(1), a.items(2).insert(0, '+'))", "-p", "18")
         initscr();
         setEscapeDelay(0);
         keypad(stdscr, true);
