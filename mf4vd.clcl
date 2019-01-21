@@ -14,9 +14,9 @@ class MFiler5 version 4 {
         endwin();
         
         path := "\{getenv("HOME")}/.clover2/mfiler5/vd";
-        cmdline := "grep -rl '' * > '\{path}'"
+        cmdline := "grep -rIl '' * > '\{path}'"
         
-        iclover2("--controlling-terminal", "-s", cmdline, "-p", "10", "-o");
+        iclover2("--controlling-terminal", "-s", cmdline, "-p", "11", "-o");
         
         initscr();
         setEscapeDelay(0);
@@ -28,6 +28,9 @@ class MFiler5 version 4 {
         {
             files = path.toPath().read().toString().split('\n');
         }
+        
+        cursor = 0;
+        scrollTop = 0;
     }
     def findMode() {
         endwin();
@@ -47,5 +50,8 @@ class MFiler5 version 4 {
         {
             files = path.toPath().read().toString().split('\n');
         }
+        
+        cursor = 0;
+        scrollTop = 0;
     }
 }

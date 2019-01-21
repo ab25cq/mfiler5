@@ -23,7 +23,7 @@ class MFiler5 version 5 {
     }
     def grepMode2() {
         endwin();
-        iclover2("--controlling-terminal", "-o", "-s", "a := egrep(\"-n\", \"\", glob(\"*\")).selector().scan(/^(.+?):(\\d+)/); vicl(\"--controlling-terminal\", a.items(1), a.items(2).insert(0, '+'))", "-p", "18")
+        iclover2("--controlling-terminal", "-o", "-s", "a := egrep(\"-nI\", \"\", glob(\"*\")).selector().scan(/^(.+?):(\\d+)/); vicl(\"--controlling-terminal\", a.items(1), a.items(2).insert(0, '+'))", "-p", "19")
         initscr();
         setEscapeDelay(0);
         keypad(stdscr, true);

@@ -71,10 +71,34 @@ class MFiler5 version 2 {
             }
         }
         keyEvents[('H'-'A').to_int+1] = lambda(self:MFiler5, key:int, key2:int) {
+            fname := basename(dirPath);
+            
             try {
                 path := realpath(dirPath.add("/.."));
                 dirPath = path.clone();
                 readDir(dirPath);
+            }
+            
+            n := 0;
+            files.each {
+                if(it.equals(fname)) {
+                    cursor = n;
+        
+                    if(cursor >= MaxY-1) {
+                        scroll_size := cursor - MaxY + 1;
+                        scrollTop+=scroll_size;
+                        cursor-=scroll_size;
+                    }
+                    
+                    if(cursor+scrollTop >= files.length())
+                    {
+                        scrollTop = files.length() -1;
+                        cursor = 0;
+                    }
+                    break;
+                }
+                
+                n++;
             }
         }
         keyEvents['\n'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
