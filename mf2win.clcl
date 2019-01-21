@@ -178,6 +178,18 @@ class MFiler5 version 2 {
                 noecho();
             }
         }
+        keyEvents['x'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
+            endwin();
+            fname := files.items(scrollTop+cursor); 
+            cmdline := "./\{fname} ";
+            iclover2("-o", "--controlling-terminal", "-s", cmdline);
+            
+            initscr();
+            setEscapeDelay(0);
+            keypad(stdscr, true);
+            raw();
+            noecho();
+        }
         keyEvents['n'.to_int] = lambda(self:MFiler5, key:int, key2:int) {
             endwin();
             cmdline := "touch ''";
